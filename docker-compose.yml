@@ -1,0 +1,22 @@
+version: '3.8'
+
+# Convenience local MongoDB for development. Not required if you're using
+# MongoDB Atlas (recommended for anything beyond local dev) or letting
+# mongodb-memory-server manage its own throwaway instance.
+#
+# Usage:
+#   docker compose up -d
+#   # then in backend/.env:
+#   MONGODB_URI=mongodb://localhost:27017/carrymate
+services:
+  mongo:
+    image: mongo:7
+    container_name: carrymate-mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - carrymate_mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  carrymate_mongo_data:
